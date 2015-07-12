@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <title>Emperor Timelines</title>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <link rel="icon" href="/mdl/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/mdl/material.min.css">
+  <script type="text/javascript" src="/mdl/material.min.js">
+  </script>
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <script type="text/javascript">
+    google.load("visualization", "1", {
+      packages: ["timeline"]
+    });
+    //    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var container = document.getElementById('timeline');
+      var chart = new google.visualization.Timeline(container);
+      var dataTable = new google.visualization.DataTable();
+
+      dataTable.addColumn({
+        type: 'string',
+        id: 'President'
+      });
+      dataTable.addColumn({
+        type: 'date',
+        id: 'Start'
+      });
+      dataTable.addColumn({
+        type: 'date',
+        id: 'End'
+      });
+      dataTable.addRows([
+        ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
+        ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
+        ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]
+      ]);
+
+      chart.draw(dataTable);
+    }
+
+    function fnAdd() {
+
+    }
+  </script>
+</head>
+
+<body>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+          <input class="mdl-textfield__input" type="text" id="empire" />
+          <label class="mdl-textfield__label" for="empire">Empire Name</label>
+        </div>
+      </td>
+      <td>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+          <input class="mdl-textfield__input" type="text" id="emperor" />
+          <label class="mdl-textfield__label" for="emperor">Emperor Name</label>
+        </div>
+      </td>
+      <td>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+          <input class="mdl-textfield__input" type="text" id="startyear" pattern="-?[0-9]*(\.[0-9]+)?"/>
+          <label class="mdl-textfield__label" for="startyear">Start Year</label>
+          <span class="mdl-textfield__error">Input is not a number!</span>
+        </div>
+      </td>
+      <td>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+          <input class="mdl-textfield__input" type="text" id="endyear" pattern="-?[0-9]*(\.[0-9]+)?" />
+          <label class="mdl-textfield__label" for="endyear">End Year</label>
+          <span class="mdl-textfield__error">Input is not a number!</span>
+        </div>
+      </td>
+      <td>
+        <button type="button" onclick="fnAdd();" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add</button>
+      </td>
+    </tr>
+  </table>
+
+  <div id="timeline" style="height: 180px;"></div>
+
+</body>
+
+</html>

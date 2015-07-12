@@ -1,0 +1,68 @@
+<html>
+<head>
+<script src="https://apis.google.com/js/client.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load('visualization', '1.1', {packages: ['geochart','table']});
+</script>
+<link rel="icon" href="/mdl/favicon.png" type="image/png">
+<link rel="stylesheet" href="/mdl/material.min.css">
+<script type="text/javascript" src="/mdl/material.min.js">
+</script>
+<link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+<script>
+  // UPDATE TO USE YOUR PROJECT ID AND CLIENT ID
+  var project_id = 'plasma-ember-100412';
+  var client_id = '1023725432781-jn1gqepug4duvbnesbpb1cpei8agp40c.apps.googleusercontent.com';
+
+  var config = {
+    'client_id': client_id,
+    'scope': 'https://www.googleapis.com/auth/bigquery'
+  };
+
+  function runQuery() {
+    var cssClassNames = {headerRow:'mdl-data-table__cell--non-numeric'};
+   var request = gapi.client.bigquery.jobs.query({
+      'projectId': project_id,
+      'timeoutMs': '30000',
+      'query': 'SELECT state, AVG(mother_age) AS theav FROM [publicdata:samples.natality] WHERE year=2000 AND ever_born=1 GROUP BY state ORDER BY theav DESC;'
+    });
+    request.execute(function(response) {
+        console.log(response);
+        var stateValues = [["State", "Age"]];
+        $.each(response.result.rows, function(i, item) {
+          var state = item.f[0].v;
+          var age = parseFloat(item.f[1].v);
+          var stateValue = [state, age];
+          stateValues.push(stateValue);
+        });
+        var data = google.visualization.arrayToDataTable(stateValues);
+        var geochart = new google.visualization.GeoChart(
+            document.getElementById('map'));
+            var table = new google.visualization.Table(document.getElementById('table_div'));
+
+       table.draw(data, {showRowNumber: true, cssClassNames,width: '100%', height: '100%'});
+       //table.setProperty(style:'border:1px solid green');
+    //    geochart.draw(data, {width: 556, height: 347, resolution: "provinces", region: "US"});
+    });
+  }
+
+  function auth() {
+    gapi.auth.authorize(config, function() {
+        gapi.client.load('bigquery', 'v2', runQuery);
+        $('#client_initiated').html('BigQuery client initiated');
+    });
+    $('#auth_button').hide();
+  }
+</script>
+</head>
+
+<body>
+<h2>Average Mother Age at First Birth in 2000</h2>
+<button id="auth_button" onclick="auth();">Authorize</button>
+<button id="query_button" style="display:none;" onclick="runQuery();">Run Query</button>
+<div id="map"></div>
+<div id='table_div'></div>
+</body>
+</html>
