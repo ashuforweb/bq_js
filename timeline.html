@@ -5,6 +5,34 @@
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <link rel="icon" href="/mdl/favicon.png" type="image/png">
   <link rel="stylesheet" href="/mdl/material.min.css">
+  <style media="screen">
+    .show {
+      animation-fill-mode: forwards;
+      animation-duration: 3s;
+      animation-name: disappear;
+    }
+
+    @keyframes disappear {
+      from {
+        background-color: rgba(255, 64, 129, 1);
+        display: block;
+      }
+      to {
+        background-color: rgba(255, 64, 129, 0);
+        display: none;
+        opacity: 0;
+      }
+    }
+
+    .time-error {
+      display: none;
+    }
+
+    h1 {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
   <script type="text/javascript" src="/mdl/material.min.js">
   </script>
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
@@ -13,15 +41,21 @@
       packages: ["timeline"]
     });
     //    google.setOnLoadCallback(drawChart);
+    var arrVal = new Array();
+    var arris = new Array();
 
-    function drawChart() {
+    function drawChart(arri) {
       var container = document.getElementById('timeline');
       var chart = new google.visualization.Timeline(container);
       var dataTable = new google.visualization.DataTable();
 
       dataTable.addColumn({
         type: 'string',
-        id: 'President'
+        id: 'empire'
+      });
+      dataTable.addColumn({
+        type: 'string',
+        id: 'emperor'
       });
       dataTable.addColumn({
         type: 'date',
@@ -31,22 +65,37 @@
         type: 'date',
         id: 'End'
       });
-      dataTable.addRows([
-        ['Washington', new Date(1789, 3, 30), new Date(1797, 2, 4)],
-        ['Adams', new Date(1797, 2, 4), new Date(1801, 2, 4)],
-        ['Jefferson', new Date(1801, 2, 4), new Date(1809, 2, 4)]
-      ]);
-
+      console.log('1');
+      //dataTable.addRows([e1,e2,new Date(e3,0,0),new Date(e4,0,0)]);
+      dataTable.addRows(arri);
       chart.draw(dataTable);
     }
 
     function fnAdd() {
+      var empire = document.getElementById('empire').value;
+      var emperor = document.getElementById('emperor').value;
+      var startyear = document.getElementById('startyear').value;
+      var endyear = document.getElementById('endyear').value;
+      if (empire.length == 0 || emperor.length == 0 || startyear.length == 0 || endyear.length == 0) {
+        console.log("fnadd");
+        var divclass = 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent time-error'
+        document.getElementById('div-error').className = '';
+        document.getElementById('div-error').className = divclass;
+        document.getElementById('div-error').style.display = 'block';
+        document.getElementById('div-error').className = document.getElementById('div-error').className + ' show';
+      } else {
+        //    arrVal.push(empire,emperor,new Date(startyear,01,01),new Date(endyear,01,01));
+        arrVal.push(empire, emperor, new Date(startyear, 01, 01), new Date(endyear, 01, 01));
+        console.log(arrVal);
+        drawChart(arrVal);
+      }
 
     }
   </script>
 </head>
 
 <body>
+  <h1>Emporer's Timeline</h1>
   <table style="width:100%">
     <tr>
       <td>
@@ -63,7 +112,7 @@
       </td>
       <td>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-          <input class="mdl-textfield__input" type="text" id="startyear" pattern="-?[0-9]*(\.[0-9]+)?"/>
+          <input class="mdl-textfield__input" type="text" id="startyear" pattern="-?[0-9]*(\.[0-9]+)?" />
           <label class="mdl-textfield__label" for="startyear">Start Year</label>
           <span class="mdl-textfield__error">Input is not a number!</span>
         </div>
@@ -76,12 +125,19 @@
         </div>
       </td>
       <td>
-        <button type="button" onclick="fnAdd();" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add</button>
+        <button type="button" onClick="fnAdd();" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Emporer</button>
       </td>
     </tr>
   </table>
 
-  <div id="timeline" style="height: 180px;"></div>
+  <div class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent time-error" id="div-error">
+    Please enter all the fields before saving
+  </div>
+
+
+  <div id="timeline">
+
+  </div>
 
 </body>
 
