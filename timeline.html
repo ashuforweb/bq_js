@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Emperor Timelines</title>
+  <title>Prime Ministers of India</title>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <link rel="icon" href="/mdl/favicon.png" type="image/png">
   <link rel="stylesheet" href="/mdl/material.min.css">
@@ -42,7 +42,7 @@
     });
     //    google.setOnLoadCallback(drawChart);
     var arrVal = new Array();
-    var arris = new Array();
+
 
     function drawChart(arri) {
       var container = document.getElementById('timeline');
@@ -85,9 +85,15 @@
         document.getElementById('div-error').className = document.getElementById('div-error').className + ' show';
       } else {
         //    arrVal.push(empire,emperor,new Date(startyear,01,01),new Date(endyear,01,01));
-        arrVal.push(empire, emperor, new Date(startyear, 01, 01), new Date(endyear, 01, 01));
+        var arris = new Array();
+        arris.push(empire, emperor, new Date(startyear, 01, 01), new Date(endyear, 01, 01));
+        arrVal.push(arris);
         console.log(arrVal);
         drawChart(arrVal);
+        document.getElementById('empire').value = '';
+        document.getElementById('emperor').value = '';
+        document.getElementById('startyear').value = '';
+        document.getElementById('endyear').value = '';
       }
 
     }
@@ -95,19 +101,19 @@
 </head>
 
 <body>
-  <h1>Emporer's Timeline</h1>
+  <h1>Prime Minister's Timeline</h1>
   <table style="width:100%">
     <tr>
       <td>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
           <input class="mdl-textfield__input" type="text" id="empire" />
-          <label class="mdl-textfield__label" for="empire">Empire Name</label>
+          <label class="mdl-textfield__label" for="empire">Party Name</label>
         </div>
       </td>
       <td>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
           <input class="mdl-textfield__input" type="text" id="emperor" />
-          <label class="mdl-textfield__label" for="emperor">Emperor Name</label>
+          <label class="mdl-textfield__label" for="emperor">Prime Minister Name</label>
         </div>
       </td>
       <td>
@@ -125,7 +131,7 @@
         </div>
       </td>
       <td>
-        <button type="button" onClick="fnAdd();" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Emporer</button>
+        <button type="button" onClick="fnAdd();" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add Prime Minister</button>
       </td>
     </tr>
   </table>
@@ -135,7 +141,7 @@
   </div>
 
 
-  <div id="timeline">
+  <div id="timeline" style='height:300px;'>
 
   </div>
 
