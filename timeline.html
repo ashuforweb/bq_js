@@ -83,7 +83,11 @@
         document.getElementById('div-error').className = divclass;
         document.getElementById('div-error').style.display = 'block';
         document.getElementById('div-error').className = document.getElementById('div-error').className + ' show';
-      } else {
+      } else if(startyear.length < 4||endyear.length <4){
+        document.getElementById('div-error').innerHTML='';
+        document.getElementById('div-error').innerHTML='Please Enter correct Years';
+      }
+      else {
         //    arrVal.push(empire,emperor,new Date(startyear,01,01),new Date(endyear,01,01));
         var arris = new Array();
         arris.push(empire, emperor, new Date(startyear, 01, 01), new Date(endyear, 01, 01));
@@ -141,7 +145,7 @@
   </div>
 
 
-  <div id="timeline" style='height:300px;'>
+  <div id="timeline" style='height:100%;'>
 
   </div>
 
