@@ -95,9 +95,13 @@
         console.log(arrVal);
         drawChart(arrVal);
         document.getElementById('empire').value = '';
+        document.getElementById('divemp').className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo is-upgraded';
         document.getElementById('emperor').value = '';
+        document.getElementById('divempr').className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo is-upgraded';
         document.getElementById('startyear').value = '';
+        document.getElementById('divsy').className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo is-upgraded';
         document.getElementById('endyear').value = '';
+        document.getElementById('divey').className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo is-upgraded';
       }
 
     }
@@ -109,26 +113,26 @@
   <table style="width:100%">
     <tr>
       <td>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" id="divemp">
           <input class="mdl-textfield__input" type="text" id="empire" />
           <label class="mdl-textfield__label" for="empire">Party Name</label>
         </div>
       </td>
       <td>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" id="divempr">
           <input class="mdl-textfield__input" type="text" id="emperor" />
           <label class="mdl-textfield__label" for="emperor">Prime Minister Name</label>
         </div>
       </td>
       <td>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" id="divsy">
           <input class="mdl-textfield__input" type="text" id="startyear" pattern="-?[0-9]*(\.[0-9]+)?" />
           <label class="mdl-textfield__label" for="startyear">Start Year</label>
           <span class="mdl-textfield__error">Input is not a number!</span>
         </div>
       </td>
       <td>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo" id="divey">
           <input class="mdl-textfield__input" type="text" id="endyear" pattern="-?[0-9]*(\.[0-9]+)?" />
           <label class="mdl-textfield__label" for="endyear">End Year</label>
           <span class="mdl-textfield__error">Input is not a number!</span>
